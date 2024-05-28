@@ -15,7 +15,3 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-#api for html to pdf 
-https://rapidapi.com/yakpdf-yakpdf/api/yakpdf/
-#images to pdf
-https://rapidapi.com/paiufos/api/image-to-pdf3/
