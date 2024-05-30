@@ -1,6 +1,6 @@
 {
-    "name": "imagetopdf",
-    "short_name": "imagetopdf",
+    "name": "xpertpdf",
+    "short_name": "xpertpdf",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

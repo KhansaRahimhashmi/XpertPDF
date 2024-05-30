@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "imagetopdf" "\0"
+            VALUE "FileDescription", "xpertpdf" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "imagetopdf" "\0"
+            VALUE "InternalName", "xpertpdf" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "imagetopdf.exe" "\0"
-            VALUE "ProductName", "imagetopdf" "\0"
+            VALUE "OriginalFilename", "xpertpdf.exe" "\0"
+            VALUE "ProductName", "xpertpdf" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

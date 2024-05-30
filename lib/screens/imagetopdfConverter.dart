@@ -29,14 +29,27 @@ class ImageToPdfConverter extends StatefulWidget {
 class _ImageToPdfConverterState extends State<ImageToPdfConverter> {
   List<XFile> _imageFiles = [];
 
-  Future<void> _pickImages() async {
+  Future<void> _pickImagesFromGallery() async {
     final pickedFiles = await ImagePicker().pickMultiImage(
       maxWidth: 1000, // Adjust this as needed
       maxHeight: 1000, // Adjust this as needed
     );
     setState(() {
       if (pickedFiles != null) {
-        _imageFiles = pickedFiles;
+        _imageFiles.addAll(pickedFiles);
+      }
+    });
+  }
+
+  Future<void> _pickImageFromCamera() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1000, // Adjust this as needed
+      maxHeight: 1000, // Adjust this as needed
+    );
+    setState(() {
+      if (pickedFile != null) {
+        _imageFiles.add(pickedFile);
       }
     });
   }
@@ -74,35 +87,65 @@ class _ImageToPdfConverterState extends State<ImageToPdfConverter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image to PDF Converter'),
+        title: Text('Pick Images'),
+        backgroundColor: Colors.purple,
       ),
-      body: _imageFiles.isEmpty
-          ? Center(child: Text('No images selected'))
-          : GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // Adjust the number of images per row
-          crossAxisSpacing: 4.0,
-          mainAxisSpacing: 4.0,
-        ),
-        itemCount: _imageFiles.length,
-        itemBuilder: (context, index) => Image.file(
-          File(_imageFiles[index].path),
-          fit: BoxFit.cover,
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+      body: Column(
         children: <Widget>[
-          FloatingActionButton(
-            onPressed: _pickImages,
-            tooltip: 'Pick Images',
-            child: Icon(Icons.photo),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: _pickImageFromCamera,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.pink, // Text color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ),
+                child: Text('Camera'),
+              ),
+              SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: _pickImagesFromGallery,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.grey, // Text color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ),
+                child: Text('Gallery'),
+              ),
+            ],
           ),
-          SizedBox(height: 16),
-          FloatingActionButton(
-            onPressed: _convertToPdf,
-            tooltip: 'Convert to PDF',
-            child: Icon(Icons.picture_as_pdf),
+          Expanded(
+            child: _imageFiles.isEmpty
+                ? Center(child: Text('No images selected'))
+                : GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, // Adjust the number of images per row
+                crossAxisSpacing: 4.0,
+                mainAxisSpacing: 4.0,
+              ),
+              itemCount: _imageFiles.length,
+              itemBuilder: (context, index) => Image.file(
+                File(_imageFiles[index].path),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: _convertToPdf,
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.pink, // Text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+              ),
+              child: Text('Convert into PDF'),
+            ),
           ),
         ],
       ),
